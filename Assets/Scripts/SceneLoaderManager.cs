@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum Level {One, Two, Three}
 //
 public class SceneLoaderManager : Singleton<SceneLoaderManager>
 {
