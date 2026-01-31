@@ -35,11 +35,11 @@ public class GameEventManager : Singleton<GameEventManager>
         if(!_gameState)
             throw new NullReferenceException("GameState ScriptableObject is missing, add it to the GameEventsManager on the editor");
     }
-    protected override void OnDestroy() => base.OnDestroy();
+    //protected override void OnDestroy() => base.OnDestroy();
 
     private void OnEnable()
     {
-        NetworkManager.OnSessionCreated += OnSessionCreatedHandler;
+        //NetworkManager.OnSessionCreated += OnSessionCreatedHandler;
     }
 
     private void OnDisable()
@@ -50,7 +50,7 @@ public class GameEventManager : Singleton<GameEventManager>
         OnGameWon = null;
         OnGameStarted = null;
 
-        NetworkManager.OnSessionCreated -= OnSessionCreatedHandler;
+        //NetworkManager.OnSessionCreated -= OnSessionCreatedHandler;
     }
 
     #region Public triggers
@@ -67,6 +67,7 @@ public class GameEventManager : Singleton<GameEventManager>
     {
         //TODO
         // NetManger->CreateSession
+        ConnectionManager.Instance.HostGame();
         Debug.Log("Session creation requested");
     }
     public static void TiggerOnJoinRequested()

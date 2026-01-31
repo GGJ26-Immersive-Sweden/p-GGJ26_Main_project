@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,11 +18,9 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
     {
         GameEventManager.OnGameStarted += OnGameStartedHandler;
     }
-    //TODO Disconned
-
     private void OnDisable()
     {
-        
+        GameEventManager.OnGameStarted -= OnGameStartedHandler;
     }
 
     #region API

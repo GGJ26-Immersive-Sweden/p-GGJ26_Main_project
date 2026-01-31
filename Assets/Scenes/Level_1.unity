@@ -627,7 +627,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1529488580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameEventManager, Assembly-CSharp
         m_MethodName: TriggerOnGameOver
         m_Mode: 1
@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1529488578}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneLoaderManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -1946,7 +1946,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1529488580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameEventManager, Assembly-CSharp
         m_MethodName: TriggerOnGameWon
         m_Mode: 1
@@ -2014,7 +2014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1247962295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2247,8 +2247,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1529488579}
-  - component: {fileID: 1529488578}
-  - component: {fileID: 1529488580}
   - component: {fileID: 1529488581}
   m_Layer: 0
   m_Name: Managers
@@ -2257,18 +2255,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1529488578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529488577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 741b62fa6db554c5a9231ac3d5e3df73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneLoaderManager
 --- !u!4 &1529488579
 Transform:
   m_ObjectHideFlags: 0
@@ -2284,18 +2270,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1529488580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529488577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e735d8ecca7842878a58cb548cdd72d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameEventManager
 --- !u!114 &1529488581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,7 +2366,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1529488578}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneLoaderManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -2799,7 +2773,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1529488578}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneLoaderManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
