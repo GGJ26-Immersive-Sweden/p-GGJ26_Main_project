@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,13 +16,22 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
 
     private void OnEnable()
     {
-        GameEventManager.OnGameStarted += OnGameStartedHandler;
+        if(GameEventManager.Instance)
+        {
+            GameEventManager.OnGameStarted += OnGameStartedHandler;
+            GameEventManager.OnExitRequested += OnExitRequestedHandler;   
+        }
     }
-    //TODO Disconned
+
+    
 
     private void OnDisable()
     {
-        
+        if(GameEventManager.Instance)
+        {
+            GameEventManager.OnGameStarted -= OnGameStartedHandler;
+            GameEventManager.OnExitRequested -= OnExitRequestedHandler;
+        }
     }
 
     #region API
@@ -48,6 +58,11 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
     private void OnGameStartedHandler()
     {
         LoadScene("Level_1");
+    }
+
+    private void OnExitRequestedHandler()
+    {
+        LoadScene("Home");
     }
 
 #endregion

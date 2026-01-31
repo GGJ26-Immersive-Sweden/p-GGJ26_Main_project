@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This component loads the home Scene after all the singletons are initialized
+/// And transitions to Home
 /// </summary>
 public class CoreBootstrap: MonoBehaviour
 {

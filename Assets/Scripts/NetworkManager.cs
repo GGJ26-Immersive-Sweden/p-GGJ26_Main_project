@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+/*
 public class NetworkManager : Singleton<NetworkManager>
 {
     public static event Action OnSessionCreated;
@@ -8,7 +8,7 @@ public class NetworkManager : Singleton<NetworkManager>
     public static event Action OnSessionClose;
 
     protected override void Awake() => base.Awake();
-    protected override void OnDestroy() => base.OnDestroy();
+    //protected override void OnDestroy() => base.OnDestroy();
 
     void OnDisable()
     {
@@ -42,3 +42,4 @@ public class NetworkManager : Singleton<NetworkManager>
     }
 #endregion
 }
+*/
