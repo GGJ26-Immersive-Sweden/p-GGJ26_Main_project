@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class GameEventManager : Singleton<GameEventManager>
 {
+    [SerializeField] private GameState _gameState;
     // Events
-
     public static event Action<Level> OnLevelCompleted;
     public static event Action OnGameOver;
     public static event Action OnGameWon;
@@ -12,10 +12,35 @@ public class GameEventManager : Singleton<GameEventManager>
 
     // Add more events here
 
+    //* Networking Events
+
+    /// <summary>
+    /// Request Session creation to the NetManager
+    /// </summary>
+    public static event Action OnSessionRequested;
+    /// <summary>
+    /// Request Join session to the NetManager
+    /// </summary>
+    public static event Action OnJoinRequested;
+    /// <summary>
+    /// Request Exit session to the NetManager
+    /// </summary>
+    public static event Action OnExitRequested;
+
     ///
 
-    protected override void Awake() => base.Awake();
-    //protected override void OnDestroy() => base.OnDestroy();
+    protected override void Awake()
+    {
+        base.Awake();
+        if(!_gameState)
+            throw new NullReferenceException("GameState ScriptableObject is missing, add it to the GameEventsManager on the editor");
+    }
+    protected override void OnDestroy() => base.OnDestroy();
+
+    private void OnEnable()
+    {
+        NetworkManager.OnSessionCreated += OnSessionCreatedHandler;
+    }
 
     private void OnDisable()
     {
@@ -24,18 +49,48 @@ public class GameEventManager : Singleton<GameEventManager>
         OnGameOver = null;
         OnGameWon = null;
         OnGameStarted = null;
+
+        NetworkManager.OnSessionCreated -= OnSessionCreatedHandler;
     }
 
-#region Public triggers
+    #region Public triggers
 
     public static void TriggerOnLevelCompleted(Level level) => OnLevelCompleted?.Invoke(level);
     public static void TriggerOnGameOver() => OnGameOver?.Invoke();
     public static void TriggerOnGameWon() => OnGameWon?.Invoke();
     public static void TriggerOnGameStarted() => OnGameStarted?.Invoke();
     // Add more events triggers here
-    
-    ///
+
+    //* Networking triggers
+
+    public static void TiggerOnSessionRequested()
+    {
+        //TODO
+        // NetManger->CreateSession
+        Debug.Log("Session creation requested");
+    }
+    public static void TiggerOnJoinRequested()
+    {
+        //TODO
+        // NetManger->JoinSession
+        Debug.Log("Session join requested");
+    }
+    public static void TriggerOnExitRequested()
+    {
+        //TODO
+        // NetManger->CloseSession
+        Debug.Log("Session exist requested");
+    }
+#endregion
+
+#region 
+    private void OnSessionCreatedHandler()
+    {
+        OnGameStarted?.Invoke();
+        _gameState.InitPlayer();
+    }
 
 #endregion
+
 
 }
