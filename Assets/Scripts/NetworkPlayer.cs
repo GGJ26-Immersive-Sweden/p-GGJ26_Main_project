@@ -92,7 +92,7 @@ public class NetworkPlayer : NetworkBehaviour {
         // Trigger death particle effect, sound and make invisible
         ps?.Play();
         //SoundManager.PlaySoundAtPosition("PlayerDeath", this.transform.position);
-        // this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
 
         // Reset velocity and position
         rb.linearVelocity = Vector3.zero;
@@ -101,7 +101,7 @@ public class NetworkPlayer : NetworkBehaviour {
         this.transform.rotation = respawnPoint.rotation;
         this.transform.localScale = respawnPoint.localScale;
 
-        // // Make player visible again
-        // this.gameObject.SetActive(true);
+        // Make player visible again
+        this.gameObject.SetActive(true);
     }
 }

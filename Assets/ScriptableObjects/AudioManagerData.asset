@@ -27,7 +27,7 @@ MonoBehaviour:
     onStart: 0
     randomizeAudioClip: 0
     clips:
-    - {fileID: 8300000, guid: 23dacd3ad362a50498de054523453e65, type: 3}
+    - {fileID: 8300000, guid: 0805daa1d055053419ec022ee89dbb75, type: 3}
     volume: 1
     randomVolumeRange: 0
     basePitchType: 2
