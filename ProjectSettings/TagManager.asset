@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Death Zone
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -12,10 +14,10 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
-  - 
-  - 
+  - Red
+  - Blue
+  - Player 1
+  - Player 2
   - 
   - 
   - 
@@ -43,8 +45,8 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
-  - Light Layer 1
-  - Light Layer 2
+  - Red Light Layer
+  - Blue Light Layer
   - Light Layer 3
   - Light Layer 4
   - Light Layer 5
