@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 5565101779397303075}
   - component: {fileID: 464287264456513287}
   - component: {fileID: 842197292563484783}
+  - component: {fileID: 6838902069361754880}
   m_Layer: 0
   m_Name: Pickup
   m_TagString: Goal
@@ -240,3 +241,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6838902069361754880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275229097544890134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336c541af9ab8eb429bdd9d6b2daf31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableComponent
+  gameState: {fileID: 11400000, guid: d6fed36968458410993e88fad8cd822b, type: 2}
+  ps: {fileID: 0}

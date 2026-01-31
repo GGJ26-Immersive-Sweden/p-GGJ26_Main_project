@@ -64,14 +64,10 @@ public class AudioManager : Singleton<AudioManager> {
             audioSource.clip = data.Clips[selectedClip];
 
             audioSource.volume = data.Volume +
-                (data.RandomVolumeRange != 0f
-                    ? UnityEngine.Random.Range(-data.RandomVolumeRange / 2f, data.RandomVolumeRange / 2f)
-                    : 0f);
+                (data.RandomVolumeRange != 0f ? UnityEngine.Random.Range(-data.RandomVolumeRange / 2f, data.RandomVolumeRange / 2f): 0f);
 
             audioSource.pitch = data.Pitch +
-                (data.RandomPitchRange != 0f
-                    ? UnityEngine.Random.Range(-data.RandomPitchRange / 2f, data.RandomPitchRange / 2f)
-                    : 0f);
+                (data.RandomPitchRange != 0f ? UnityEngine.Random.Range(-data.RandomPitchRange / 2f, data.RandomPitchRange / 2f): 0f);
 
             audioSource.Play();
 

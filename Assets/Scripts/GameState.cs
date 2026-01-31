@@ -11,6 +11,10 @@ struct Player
 public class GameState : ScriptableObject
 {
     [SerializeField] private uint _score = 0;
+    [SerializeField] private uint _playersDone = 0;
+    [SerializeField] private bool _completedLevel = false;
+    [SerializeField] private int  _currentLevel = 0;
+    
     private const uint MAX_PLAYERS = 2;
     
     // Networking
@@ -44,6 +48,17 @@ public class GameState : ScriptableObject
         _score = 0;
         _players.Clear();
         _players = null;
+    }
+
+    public void PlayerDone()
+    {
+        _playersDone++;
+        if (_playersDone >= 2)
+        {
+            Level lvl = (Level)_currentLevel;
+            GameEventManager.TriggerOnLevelCompleted(lvl);
+        }
+        _playersDone = 0;
     }
 
     internal void InitPlayer()

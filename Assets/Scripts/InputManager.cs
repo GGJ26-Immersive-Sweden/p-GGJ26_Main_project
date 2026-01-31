@@ -5,6 +5,7 @@ public class InputManager : MonoBehaviour {
 
     // Component References
     private Rigidbody playerRigidbody;
+    private NetworkPlayer networkPlayer;
 
     // Input values
     private bool jumpPressed = false;
@@ -22,13 +23,16 @@ public class InputManager : MonoBehaviour {
     [Header("Gravity")]
     public float fallGravityMultiplier = 2f;
     public float airtimeGravityMultiplier = 3f;
+    public float variableJumpHeightGravityMultiplier = 100f;
 
     [Header("Jump Assist")]
     public float coyoteTime = 0.15f;
     public float jumpBufferTime = 0.15f;
+    public float variableJumpHeightBufferTime = 0.05f;
 
     void Start() {
         playerRigidbody = GetComponent<Rigidbody>();
+        networkPlayer = GetComponent<NetworkPlayer>();
     }
 
     // Execute physics based movement input
@@ -51,6 +55,15 @@ public class InputManager : MonoBehaviour {
             {
                 playerRigidbody.AddForce(Vector3.up * Physics.gravity.y * (fallGravityMultiplier - 1), ForceMode.Acceleration);
             }
+            else
+            {
+                // Increase Gravity if not holding down space (for variable jump height)
+                if (Time.time - lastJumpPressedTime <= variableJumpHeightBufferTime)
+                {
+                    playerRigidbody.AddForce(Vector3.up * Physics.gravity.y * (variableJumpHeightGravityMultiplier - 1), ForceMode.Acceleration);
+                }
+            }
+
         }
 
         // Move
@@ -70,7 +83,7 @@ public class InputManager : MonoBehaviour {
 
         Debug.DrawRay(rayStart, rayDirection * rayLength, Color.red);
 
-        return Physics.Raycast(rayStart, rayDirection, rayLength);
+        return Physics.Raycast(rayStart, rayDirection, rayLength, networkPlayer.collidable);
     }
     
     // Set movement input from Input System
@@ -94,7 +107,6 @@ public class InputManager : MonoBehaviour {
         // Consume buffered jump
         lastJumpPressedTime = -999f;
         lastGroundedTime = -999f;
-        Debug.Log("SUPER JUMPED");
     }
 
     bool CanJump()
@@ -107,7 +119,6 @@ public class InputManager : MonoBehaviour {
     // Set jump input from Input System 
     void OnJump() {  
         lastJumpPressedTime = Time.time; 
-        Debug.Log("JUMPED");
     } 
 
 }
