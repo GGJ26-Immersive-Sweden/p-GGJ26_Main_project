@@ -6,7 +6,7 @@ public class ConnectionManager : Singleton<ConnectionManager> {
 
     // This call the implementation of the base class to instantiate the Singleton
     protected override  void Awake() => base.Awake();
-    protected override void OnDestroy() => base.OnDestroy();
+    //protected override void OnDestroy() => base.OnDestroy();
 
     // UI Input field to enter the relay join code
     public TMP_InputField code;

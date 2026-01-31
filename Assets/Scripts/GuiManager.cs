@@ -10,7 +10,7 @@ public class GuiManager:Singleton<GuiManager>
     [SerializeField] private GameObject _gameOverGui;
 
     protected override void Awake() => base.Awake();
-    protected override void OnDestroy() => base.OnDestroy();
+    //protected override void OnDestroy() => base.OnDestroy();
 
     private void OnEnable() => SubscribeToGameEvents();
     private void OnDisable() => UnsubscribeToGameEvents();
