@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using Unity.Netcode;
+using UnityEngine.InputSystem;
+using System;
 
-public class NetworkPlayer : NetworkBehaviour {
+public class NetworkPlayer : NetworkBehaviour
+{
 
     // Component references
     private Rigidbody rb;
@@ -13,9 +16,11 @@ public class NetworkPlayer : NetworkBehaviour {
 
     // Filter collisions based on layer mask
     [SerializeField] private LayerMask collidableWith;
-    public LayerMask collidable {
+    public LayerMask collidable
+    {
         get { return collidableWith; }
-        set {
+        set
+        {
             UpdateCollidableLayerMask(value);
             collidableWith = value;
         }
@@ -23,29 +28,35 @@ public class NetworkPlayer : NetworkBehaviour {
 
     // Layers to filter visibility
     [SerializeField] private LayerMask canSee;
-    public LayerMask visible {
+    public LayerMask visible
+    {
         get { return canSee; }
-        set {
+        set
+        {
             UpdateVisibilityLayerMask(value);
             canSee = value;
         }
     }
 
     // Initialize component references
-    void Awake() {
+    void Awake()
+    {
         rb = GetComponent<Rigidbody>();
         ps = GetComponent<ParticleSystem>();
     }
 
     // Update inspectors changes
-    void OnValidate() {
+    void OnValidate()
+    {
         UpdateCollidableLayerMask(collidableWith);
         UpdateVisibilityLayerMask(canSee);
     }
 
     // Handle trigger events
-    void OnTriggerEnter(Collider collider) {
-        switch (collider.gameObject.tag) {
+    void OnTriggerEnter(Collider collider)
+    {
+        switch (collider.gameObject.tag)
+        {
             case "Death Zone":
                 RespawnRpc();
                 break;
@@ -56,29 +67,36 @@ public class NetworkPlayer : NetworkBehaviour {
     }
 
     // Updates collider matrix based on layer mask
-    void UpdateCollidableLayerMask(LayerMask mask) {
-        for (int i = 0; i < 32; i++) {
+    void UpdateCollidableLayerMask(LayerMask mask)
+    {
+        for (int i = 0; i < 32; i++)
+        {
             Physics.IgnoreLayerCollision(this.gameObject.layer, i, (mask.value & (1 << i)) == 0);
         }
     }
 
     // Updates visibility based on layer mask
-    void UpdateVisibilityLayerMask(LayerMask mask) {
+    void UpdateVisibilityLayerMask(LayerMask mask)
+    {
         Camera.main.cullingMask = mask;
 
         // Get all lights in the scene and update their culling masks
         Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
-        foreach (Light light in lights) {
+        foreach (Light light in lights)
+        {
             UniversalAdditionalLightData lightData = light.GetComponent<UniversalAdditionalLightData>();
             RenderingLayerMask lightLayers = lightData.renderingLayers;
             lightData.renderingLayers = 0;
 
             // If layer is not in mask, change rendering layer to nothing
-            if ((mask.value & (1 << light.gameObject.layer)) == 0) {
+            if ((mask.value & (1 << light.gameObject.layer)) == 0)
+            {
                 lightData.renderingLayers = 0;
 
-            // Else, change rendering layer to default
-            } else {
+                // Else, change rendering layer to default
+            }
+            else
+            {
                 lightData.renderingLayers = 1;
             }
         }
@@ -86,7 +104,8 @@ public class NetworkPlayer : NetworkBehaviour {
 
     // Respawn the player at respawn point with delay
     [Rpc(SendTo.Everyone)]
-    public void RespawnRpc() {
+    public void RespawnRpc()
+    {
         Debug.Log("Player Respawning...");
 
         // Trigger death particle effect, sound and make invisible
@@ -104,4 +123,16 @@ public class NetworkPlayer : NetworkBehaviour {
         // Make player visible again
         this.gameObject.SetActive(true);
     }
+
+    //TODO Testing communication
+
+    public override void OnNetworkSpawn()
+    {
+        Debug.Log($"[SPAWN] Player spawned. IsOwner: {IsOwner}, ClientId: {OwnerClientId}");
+        Debug.Log($"[SPAWN] Position: {transform.position}");
+        Debug.Log($"[SPAWN] Layer: {LayerMask.LayerToName(gameObject.layer)}");
+        Debug.Log($"[SPAWN] Has Collider: {GetComponent<Collider>() != null}");
+        Debug.Log($"[SPAWN] Rigidbody isKinematic: {rb.isKinematic}");
+    }
+
 }
