@@ -31,11 +31,13 @@ public class ConnectionManager : Singleton<ConnectionManager> {
         // Join an existing relay
         if (!await RelayManager.JoinRelay(code)) {
             Debug.LogError("Failed to join relay.");
+            GameEventManager.TriggerOnJoinRequestFailed();
             return;
         }
 
         // Swap to main game scene
         Debug.Log($"Joining Relay with code: {code}");
+        GameEventManager.TriggerOnGameStarted();
     }
 
     public async void ExitGame()

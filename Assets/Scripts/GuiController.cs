@@ -1,4 +1,7 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// This is the interface to communicate any Editor-base event with the
@@ -6,9 +9,10 @@ using UnityEngine;
 /// </summary>
 public class GuiController : MonoBehaviour
 {
-    public void TriggerJoinSessionButton() => GameEventManager.TiggerOnJoinRequested();
-    public void TriggerWinGameButton() => GameEventManager.TriggerOnGameWon();
-    public void TriggerGameOverGameButton() => GameEventManager.TriggerOnGameOver();
-    public void TriggerExitGameButton() => GameEventManager.TriggerOnExitRequested();
-    
+
+    public void TriggerJoinSessionButton() { if (GameEventManager.Instance != null) GameEventManager.TiggerOnJoinRequested(); }
+    public void TriggerWinGameButton() { if (GameEventManager.Instance != null) GameEventManager.TriggerOnGameWon(); }
+    public void TriggerGameOverGameButton() { if (GameEventManager.Instance != null) GameEventManager.TriggerOnGameOver(); }
+    public void TriggerExitGameButton() { if (GameEventManager.Instance != null) GameEventManager.TriggerOnExitRequested(); }
+
 }

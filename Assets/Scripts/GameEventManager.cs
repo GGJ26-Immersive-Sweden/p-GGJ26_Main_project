@@ -26,6 +26,7 @@ public class GameEventManager : Singleton<GameEventManager>
     /// Request Exit session to the NetManager
     /// </summary>
     public static event Action OnExitRequested;
+    public static event Action OnJoinRequestFailed;
 
     ///
 
@@ -49,6 +50,7 @@ public class GameEventManager : Singleton<GameEventManager>
         OnGameOver = null;
         OnGameWon = null;
         OnGameStarted = null;
+        OnJoinRequestFailed = null;
 
         //NetworkManager.OnSessionCreated -= OnSessionCreatedHandler;
     }
@@ -59,27 +61,30 @@ public class GameEventManager : Singleton<GameEventManager>
     public static void TriggerOnGameOver() => OnGameOver?.Invoke();
     public static void TriggerOnGameWon() => OnGameWon?.Invoke();
     public static void TriggerOnGameStarted() => OnGameStarted?.Invoke();
+
+    public static void TriggerOnJoinRequestFailed() => OnJoinRequestFailed?.Invoke();
     // Add more events triggers here
 
     //* Networking triggers
 
     public static void TiggerOnSessionRequested()
     {
-        //TODO
-        // NetManger->CreateSession
         ConnectionManager.Instance.HostGame();
         Debug.Log("Session creation requested");
     }
+
     public static void TiggerOnJoinRequested()
     {
-        //TODO
-        // NetManger->JoinSession
-        Debug.Log("Session join requested");
+        string code = Instance._gameState.SessionId;
+        Debug.Log($"Session join requested to {code}");
+
+        if(code.Length > 0)
+        {
+            ConnectionManager.Instance.JoinGame(code);
+        }
     }
     public static void TriggerOnExitRequested()
     {
-        //TODO
-        // NetManger->CloseSession
         ConnectionManager.Instance.ExitGame();
         OnExitRequested?.Invoke();
         Debug.Log("Session exist requested");
