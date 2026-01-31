@@ -15,7 +15,7 @@ public class GameEventManager : Singleton<GameEventManager>
     ///
 
     protected override void Awake() => base.Awake();
-    protected override void OnDestroy() => base.OnDestroy();
+    //protected override void OnDestroy() => base.OnDestroy();
 
     private void OnDisable()
     {

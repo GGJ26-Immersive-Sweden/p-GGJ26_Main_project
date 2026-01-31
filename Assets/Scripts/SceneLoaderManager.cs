@@ -8,7 +8,7 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
 {
     // This call the implementation of the base class to instantiate the Singleton
     protected override  void Awake() => base.Awake();
-    protected override void OnDestroy() => base.OnDestroy();
+    //protected override void OnDestroy() => base.OnDestroy();
 
     #region API
 
