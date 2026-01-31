@@ -80,6 +80,8 @@ public class GameEventManager : Singleton<GameEventManager>
     {
         //TODO
         // NetManger->CloseSession
+        ConnectionManager.Instance.ExitGame();
+        OnExitRequested?.Invoke();
         Debug.Log("Session exist requested");
     }
 #endregion

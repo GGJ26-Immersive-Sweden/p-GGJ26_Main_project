@@ -16,11 +16,22 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
 
     private void OnEnable()
     {
-        GameEventManager.OnGameStarted += OnGameStartedHandler;
+        if(GameEventManager.Instance)
+        {
+            GameEventManager.OnGameStarted += OnGameStartedHandler;
+            GameEventManager.OnExitRequested += OnExitRequestedHandler;   
+        }
     }
+
+    
+
     private void OnDisable()
     {
-        GameEventManager.OnGameStarted -= OnGameStartedHandler;
+        if(GameEventManager.Instance)
+        {
+            GameEventManager.OnGameStarted -= OnGameStartedHandler;
+            GameEventManager.OnExitRequested -= OnExitRequestedHandler;
+        }
     }
 
     #region API
@@ -47,6 +58,11 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
     private void OnGameStartedHandler()
     {
         LoadScene("Level_1");
+    }
+
+    private void OnExitRequestedHandler()
+    {
+        LoadScene("Home");
     }
 
 #endregion

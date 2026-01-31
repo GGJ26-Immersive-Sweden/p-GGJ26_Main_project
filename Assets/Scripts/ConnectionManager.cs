@@ -37,4 +37,11 @@ public class ConnectionManager : Singleton<ConnectionManager> {
         // Swap to main game scene
         Debug.Log($"Joining Relay with code: {code}");
     }
+
+    public async void ExitGame()
+    {
+        RelayManager.Disconnect();
+
+        Debug.Log($"Player disconnected");
+    }
 }
