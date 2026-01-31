@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,9 +8,31 @@ public enum Level {One, Two, Three}
 //
 public class SceneLoaderManager : Singleton<SceneLoaderManager>
 {
+    // Scenes
+
     // This call the implementation of the base class to instantiate the Singleton
     protected override  void Awake() => base.Awake();
-    protected override void OnDestroy() => base.OnDestroy();
+    //protected override void OnDestroy() => base.OnDestroy();
+
+    private void OnEnable()
+    {
+        if(GameEventManager.Instance)
+        {
+            GameEventManager.OnGameStarted += OnGameStartedHandler;
+            GameEventManager.OnExitRequested += OnExitRequestedHandler;   
+        }
+    }
+
+    
+
+    private void OnDisable()
+    {
+        if(GameEventManager.Instance)
+        {
+            GameEventManager.OnGameStarted -= OnGameStartedHandler;
+            GameEventManager.OnExitRequested -= OnExitRequestedHandler;
+        }
+    }
 
     #region API
 
@@ -17,7 +41,9 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
-    #endregion
+#endregion
+
+#region Private members
 
     private IEnumerator LoadSceneAsync(string sceneName)
     {
@@ -28,4 +54,16 @@ public class SceneLoaderManager : Singleton<SceneLoaderManager>
             yield return null;
         }
     }
+
+    private void OnGameStartedHandler()
+    {
+        LoadScene("Level_1");
+    }
+
+    private void OnExitRequestedHandler()
+    {
+        LoadScene("Home");
+    }
+
+#endregion
 }
