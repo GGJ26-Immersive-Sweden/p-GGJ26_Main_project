@@ -536,6 +536,15 @@ MonoBehaviour:
   canSee:
     serializedVersion: 2
     m_Bits: 4294967295
+  _inputP:
+    m_Name: Input P
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 74747e3b-ea00-471f-8634-9b48af8fab2f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &454132581
 GameObject:
   m_ObjectHideFlags: 0
