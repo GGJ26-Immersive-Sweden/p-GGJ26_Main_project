@@ -30,7 +30,7 @@ public class ConnectionManager : Singleton<ConnectionManager> {
 
         // Swap to main game scene
         Debug.Log($"Created Relay with code: {RelayManager.LobbyCode}");
-        _gameState.SessionId = $"{RelayManager.LobbyCode}";
+        Instance._gameState.SessionId = $"{RelayManager.LobbyCode}";
         GameEventManager.TriggerOnGameStarted();
     }
 
