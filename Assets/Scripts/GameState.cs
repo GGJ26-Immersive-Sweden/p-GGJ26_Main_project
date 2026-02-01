@@ -63,9 +63,11 @@ public class GameState : ScriptableObject
         if (_playersDone >= 2)
         {
             Level lvl = (Level)_currentLevel;
+            Debug.Log("NextLevel Triggered");
             GameEventManager.TriggerOnLevelCompleted(lvl);
+            _currentLevel++;
+            _playersDone = 0;
         }
-        _playersDone = 0;
     }
 
     internal void InitPlayer()

@@ -5,13 +5,15 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     [SerializeField] private GameObject _doorGameObject;
+    [SerializeField] private int        _levelDoor;
 
     void OnEnable() => GameEventManager.OnLevelCompleted += OnLevelCompletedHandler;
     void OnDisable() => GameEventManager.OnLevelCompleted -= OnLevelCompletedHandler;
     
     private void OnLevelCompletedHandler(Level level)
     {
-        StartCoroutine(SlideDoorUpDown(5));
+        if ((int)level >= _levelDoor)
+            StartCoroutine(SlideDoorUpDown(5));
     }
 
     public void TriggerDoorDown()
