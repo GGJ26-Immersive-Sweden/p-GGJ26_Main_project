@@ -1,10 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using Unity.Netcode;
 using UnityEngine.InputSystem;
-using System;
-using System.Data.Common;
-using NUnit.Framework;
+using Unity.Netcode;
 
 public class NetworkPlayer : NetworkBehaviour
 {
@@ -12,11 +10,11 @@ public class NetworkPlayer : NetworkBehaviour
     // Component references
     private Rigidbody rb;
     private ParticleSystem ps;
-    private MeshRenderer ms;
+    [SerializeField] private MeshRenderer ms;
     [SerializeField] private CameraRotationController cameraRotationController;
 
     // Respawn point for the player
-    [SerializeField] private Transform respawnPoint; // Will grab from GameState based on ID!
+    [SerializeField] private Vector3 respawnPoint = Vector3.zero;
     [SerializeField] private GameState gameState;
 
     // Filter collisions based on layer mask
@@ -48,7 +46,6 @@ public class NetworkPlayer : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ps = GetComponent<ParticleSystem>();
-        ms = GetComponent<MeshRenderer>();
 
         SetupPlayerAttributesRpc((int)OwnerClientId);
     }
@@ -74,6 +71,7 @@ public class NetworkPlayer : NetworkBehaviour
                 break;
             case "Door Entry":
                 if (IsOwner) {
+                    respawnPoint = collider.transform.position;
                     Camera.main.GetComponent<CameraRotationController>().RotateCameraToNextRoom(new Vector3(12.8f, 0f, 13.2f), -90f, 0.5f);
                     collider.gameObject.SetActive(false);
                 }
@@ -125,20 +123,31 @@ public class NetworkPlayer : NetworkBehaviour
     {
         Debug.Log("Player Respawning...");
 
-        // Trigger death particle effect, sound and make invisible
-        ps?.Play();
-        //SoundManager.PlaySoundAtPosition("PlayerDeath", this.transform.position);
-        this.gameObject.SetActive(false);
-
         // Reset velocity and position
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        this.transform.position = respawnPoint.position;
-        this.transform.rotation = respawnPoint.rotation;
-        this.transform.localScale = respawnPoint.localScale;
+        this.transform.position = respawnPoint;
+        this.transform.localScale = Vector3.zero;
 
         // Make player visible again
-        this.gameObject.SetActive(true);
+        StartCoroutine(ScaleOverTime(Vector3.one, 0.5f));
+    }
+
+    public IEnumerator ScaleOverTime(Vector3 targetScale, float duration)
+    {
+        yield return new WaitForSeconds(0.25f); // Small delay before starting the scaling
+
+        Vector3 initialScale = transform.localScale;
+        float elapsedTime = 0f;
+        while ((elapsedTime += Time.deltaTime) < duration) {
+            // Optional: Apply easing for smoother feel (ease-in-out)
+            float t = elapsedTime / duration;
+            float easedT = t * t * (3f - 2f * t);
+            transform.localScale = Vector3.Lerp(initialScale, targetScale, easedT);
+            yield return null;
+        }
+
+        transform.localScale = targetScale;
     }
 
     public void SetupPlayerAttributesRpc(int id)

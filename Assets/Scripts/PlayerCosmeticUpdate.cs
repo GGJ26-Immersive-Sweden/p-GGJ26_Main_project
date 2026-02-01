@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class PlayerCosmeticUpdate : MonoBehaviour
 {
-   [SerializeField] private NetworkTransform _networkTransform;
-       [SerializeField] private GameObject _cosmeticPlayer;
+    [SerializeField] private NetworkTransform _networkTransform;
+    [SerializeField] private GameObject _cosmeticPlayer;
+
+    // Store last frame position
+    private Vector3 _lastPosition;
+    private bool _hasLastPosition;
 
     void Update()
     {
@@ -12,20 +16,32 @@ public class PlayerCosmeticUpdate : MonoBehaviour
     }
 
     private void UpdateCosmeticPlayerOrientation()
-{
-    if (_cosmeticPlayer && _networkTransform)
     {
-        // Get the forward direction from the NetworkTransform's transform
-        Vector3 forward = _networkTransform.transform.forward;
-        
-        // Flatten to horizontal plane (ignore vertical tilt)
-        Vector3 facingVector = new Vector3(forward.x, 0f, forward.z).normalized;
-        
-        // Only update if we have a valid direction
-        if (facingVector.sqrMagnitude > 0.01f)
+        if (!_cosmeticPlayer || !_networkTransform)
+            return;
+
+        Vector3 currentPosition = _networkTransform.transform.position;
+
+        if (!_hasLastPosition)
         {
-            _cosmeticPlayer.transform.forward = facingVector;
+            _lastPosition = currentPosition;
+            _hasLastPosition = true;
+            return;
         }
+
+        Vector3 movementDelta = currentPosition - _lastPosition;
+
+        Vector3 facingVector = new Vector3(movementDelta.x, 0f, movementDelta.z);
+
+        if (facingVector.sqrMagnitude > 0.0001f)
+        {
+            _cosmeticPlayer.transform.forward = Vector3.Slerp(
+                    _cosmeticPlayer.transform.forward,
+                    facingVector.normalized,
+                    Time.deltaTime * 10f
+                );
+        }
+
+        _lastPosition = currentPosition;
     }
-}
 }
