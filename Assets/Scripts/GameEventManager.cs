@@ -60,7 +60,11 @@ public class GameEventManager : Singleton<GameEventManager>
     public static void TriggerOnLevelCompleted(Level level) => OnLevelCompleted?.Invoke(level);
     public static void TriggerOnGameOver() => OnGameOver?.Invoke();
     public static void TriggerOnGameWon() => OnGameWon?.Invoke();
-    public static void TriggerOnGameStarted() => OnGameStarted?.Invoke();
+    public static void TriggerOnGameStarted()
+    {
+        //Instance._gameState.SessionId = $"{RelayManager.LobbyCode}";
+        OnGameStarted?.Invoke();
+    }
 
     public static void TriggerOnJoinRequestFailed() => OnJoinRequestFailed?.Invoke();
     // Add more events triggers here
