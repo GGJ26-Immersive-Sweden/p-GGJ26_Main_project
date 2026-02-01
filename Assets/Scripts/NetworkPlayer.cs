@@ -13,7 +13,7 @@ public class NetworkPlayer : NetworkBehaviour
     private Rigidbody rb;
     private ParticleSystem ps;
     private MeshRenderer ms;
-
+    [SerializeField] private CameraRotationController cameraRotationController;
 
     // Respawn point for the player
     [SerializeField] private Transform respawnPoint; // Will grab from GameState based on ID!
@@ -70,7 +70,13 @@ public class NetworkPlayer : NetworkBehaviour
                 RespawnRpc();
                 break;
             case "Goal":
-                Debug.Log("Player reached the goal!");
+                GameEventManager.Instance._gameState.PlayerDone(this.gameObject);
+                break;
+            case "Door Entry":
+                if (IsOwner) {
+                    Camera.main.GetComponent<CameraRotationController>().RotateCameraToNextRoom(new Vector3(12.8f, 0f, 13.2f), -90f, 0.5f);
+                    collider.gameObject.SetActive(false);
+                }
                 break;
         }
     }
@@ -87,6 +93,8 @@ public class NetworkPlayer : NetworkBehaviour
     // Updates visibility based on layer mask
     void UpdateVisibilityLayerMask(LayerMask mask)
     {
+        if (!IsOwner) return;
+
         Camera.main.cullingMask = mask;
 
         // Get all lights in the scene and update their culling masks
@@ -138,6 +146,12 @@ public class NetworkPlayer : NetworkBehaviour
         if (id > gameState._players.Length)
             Debug.LogError("Not Enough Player Settings!");
 
+        if (0 == id) {
+            gameObject.layer = LayerMask.NameToLayer("Player 1");
+        } else if (1 == id) {
+            gameObject.layer = LayerMask.NameToLayer("Player 2");
+        }
+        
         UpdateCollidableLayerMask(gameState._players[id].Collision);
         UpdateVisibilityLayerMask(gameState._players[id].Visibility);
         ms.material.color = gameState._players[id].Color;
@@ -145,10 +159,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
-            SetupPlayerAttributesRpc((int)OwnerClientId);
-        if (!IsOwner)
-            ms.material.color = gameState._players[OwnerClientId].Color;
+        SetupPlayerAttributesRpc((int)OwnerClientId);
 
         Debug.Log($"[SPAWN] Player spawned. IsOwner: {IsOwner}, ClientId: {OwnerClientId}");
         Debug.Log($"[SPAWN] Position: {transform.position}");

@@ -15,6 +15,8 @@ public class InputManager : MonoBehaviour {
     private Vector3 movementInput = Vector3.zero;
     private Vector3 movementValue = Vector3.zero;
 
+    private GameObject walk_step_sfx = null;
+
     private bool grounded = false;
 
     [Header("Movement Parameters")]
@@ -64,7 +66,6 @@ public class InputManager : MonoBehaviour {
                     playerRigidbody.AddForce(Vector3.up * Physics.gravity.y * (variableJumpHeightGravityMultiplier - 1), ForceMode.Acceleration);
                 }
             }
-
         }
 
         // Move
@@ -74,6 +75,24 @@ public class InputManager : MonoBehaviour {
             playerRigidbody.linearVelocity.y,
             movementValue.z * maxVelocity
         );
+
+        // Footstep audio
+        if (movementValue.magnitude >= 1.0f)
+        {
+            Debug.Log("Runnin'");
+            if (walk_step_sfx == null)
+                (walk_step_sfx,_) = AudioManager.Instance.Play("Footstep");
+
+            walk_step_sfx.GetComponent<AudioSource>().mute = false;
+        }
+        else
+        {
+            if (walk_step_sfx != null)
+            {
+                walk_step_sfx.GetComponent<AudioSource>().mute = true;
+            }
+
+        }
     }
     // Simple ground check using raycast
     bool IsGrounded() {
@@ -101,6 +120,8 @@ public class InputManager : MonoBehaviour {
         Vector3 velocity = playerRigidbody.linearVelocity;
         velocity.y = 0f;
         playerRigidbody.linearVelocity = velocity;
+
+        AudioManager.Instance.Play("Jump");
 
         playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
