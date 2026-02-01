@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AudioManagerData
   m_EditorClassIdentifier: Assembly-CSharp::AudioManagerData
   datas:
-  - name: CoinPickup
+  - name: CollectWin
     clips:
     - {fileID: 8300000, guid: 23dacd3ad362a50498de054523453e65, type: 3}
-    volume: 1
-    basePitchType: 2
+    volume: 0.344
+    basePitchType: 3
     onStart: 0
     loop: 0
     randomizeAudioClip: 0
@@ -25,11 +25,21 @@ MonoBehaviour:
     randomPitchRange: 0.213
   - name: Footstep
     clips:
-    - {fileID: 8300000, guid: b797e924e02ecd24592009b12d86a397, type: 3}
-    volume: 1
+    - {fileID: 8300000, guid: 4bb3996c312cdda46819c54c0898d175, type: 3}
+    volume: 0.067
     basePitchType: 2
     onStart: 0
     loop: 1
     randomizeAudioClip: 0
     randomVolumeRange: 0.104
+    randomPitchRange: 0.196
+  - name: Jump
+    clips:
+    - {fileID: 8300000, guid: 150c179c635dd6b4ab37523546b2e3ba, type: 3}
+    volume: 0.092
+    basePitchType: 2
+    onStart: 0
+    loop: 0
+    randomizeAudioClip: 0
+    randomVolumeRange: 0
     randomPitchRange: 0.196

@@ -1,3 +1,6 @@
+using System;
+using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,9 +17,8 @@ public class InputManager : MonoBehaviour {
     private Vector3 movementInput = Vector3.zero;
     private Vector3 movementValue = Vector3.zero;
 
-    private GameObject walk_step_sfx = null;
-
     private bool grounded = false;
+    private GameObject walk_step_sfx = null;
 
     [Header("Movement Parameters")]
     public float maxVelocity = 7.5f;
@@ -67,6 +69,8 @@ public class InputManager : MonoBehaviour {
             }
         }
 
+        WalkAudioRpc();
+
         // Move
         movementValue = Vector3.Lerp(movementValue, movementInput, 0.1f);
         playerRigidbody.linearVelocity = new Vector3(
@@ -74,24 +78,6 @@ public class InputManager : MonoBehaviour {
             playerRigidbody.linearVelocity.y,
             movementValue.z * maxVelocity
         );
-
-        // Footstep audio
-        if (movementValue.magnitude >= 1.0f)
-        {
-            Debug.Log("Runnin'");
-            if (walk_step_sfx == null)
-                (walk_step_sfx,_) = AudioManager.Instance.Play("Footstep");
-
-            walk_step_sfx.GetComponent<AudioSource>().mute = false;
-        }
-        else
-        {
-            if (walk_step_sfx != null)
-            {
-                walk_step_sfx.GetComponent<AudioSource>().mute = true;
-            }
-
-        }
     }
     
     // Simple ground check using raycast
@@ -121,13 +107,40 @@ public class InputManager : MonoBehaviour {
         velocity.y = 0f;
         playerRigidbody.linearVelocity = velocity;
 
-        AudioManager.Instance.Play("Jump");
+        JumpAudioRpc();
 
         playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         // Consume buffered jump
         lastJumpPressedTime = -999f;
         lastGroundedTime = -999f;
+    }
+
+
+    [Rpc(SendTo.Everyone)]
+    void JumpAudioRpc()
+    {
+        AudioManager.Instance.Play("Jump");
+    }
+
+    [Rpc(SendTo.Everyone)]
+    void WalkAudioRpc()
+    {
+        // Footstep audio if moving and grounded
+        if (grounded && (Math.Abs(playerRigidbody.linearVelocity.x) > 0.1f || Math.Abs(playerRigidbody.linearVelocity.z) > 0.1f))
+        {
+            if (walk_step_sfx == null)
+                (walk_step_sfx, _) = AudioManager.Instance.Play("Footstep");
+        }
+        else
+        {
+            if (walk_step_sfx != null)
+            {
+                walk_step_sfx.GetComponent<AudioSource>().mute = true;
+                Destroy(walk_step_sfx, 1.0f);
+                walk_step_sfx = null;
+            }
+        }
     }
 
     bool CanJump()

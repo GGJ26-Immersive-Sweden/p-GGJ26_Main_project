@@ -23,13 +23,10 @@ public class CollectableComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("KAKAKA");
 
         if (!other.CompareTag("Player"))
             return;
 
-        // Collected, Level done!
-        Debug.Log("Key Collected");
         StartCoroutine(nameof(PlayCollectEffect));
 
         gameState.PlayerDone();
@@ -42,7 +39,7 @@ public class CollectableComponent : MonoBehaviour
         meshRenderer.enabled = false;
         hitBox.enabled = false;
         AudioClip clip;
-        (_,clip) = AudioManager.Instance.Play("collect_win");
+        (_,clip) = AudioManager.Instance.Play("CollectWin");
         ps?.Play();
         yield return _waitForSeconds1_0;
         ps?.Stop();
