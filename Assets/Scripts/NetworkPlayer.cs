@@ -10,7 +10,7 @@ public class NetworkPlayer : NetworkBehaviour
     // Component references
     private Rigidbody rb;
     private ParticleSystem ps;
-    private MeshRenderer ms;
+    [SerializeField] private MeshRenderer ms;
     [SerializeField] private CameraRotationController cameraRotationController;
 
     // Respawn point for the player
@@ -46,7 +46,6 @@ public class NetworkPlayer : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ps = GetComponent<ParticleSystem>();
-        ms = GetComponent<MeshRenderer>();
 
         SetupPlayerAttributesRpc((int)OwnerClientId);
     }
