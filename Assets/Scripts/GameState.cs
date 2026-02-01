@@ -27,7 +27,7 @@ public class GameState : ScriptableObject
     private const uint MAX_PLAYERS = 2;
     
     // Networking
-    private string _sessionId = "";
+    [SerializeField] private string _sessionId = "";
  
     // To store both players
     [SerializeField] public PlayerSettings[] _players = null;
