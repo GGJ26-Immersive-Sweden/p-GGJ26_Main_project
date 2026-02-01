@@ -12,7 +12,13 @@ public class SessionCodeController : MonoBehaviour
 
     private void OnGameStartedHandler()
     {
-        _sessionCodeText.text = $"{_gameState.SessionId}";
+        Debug.Log($"X: {_gameState.SessionId}");
+        _sessionCodeText.text = _gameState.SessionId;
+    }
+
+    void Update()
+    {
+        _sessionCodeText.text = _gameState.SessionId;
     }
 
 
