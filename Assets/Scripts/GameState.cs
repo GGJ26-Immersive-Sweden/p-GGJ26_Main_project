@@ -2,9 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-struct Player
+[System.Serializable]
+public struct PlayerSettings
 {
-   uint color;
+   [SerializeField] private int playerID;
+   [SerializeField] private Color color;
+   [SerializeField] private LayerMask collision;
+   [SerializeField] private LayerMask visibility;
+
+    public readonly Color Color { get => color; }
+    public readonly LayerMask Collision { get => collision; }
+    public readonly LayerMask Visibility { get => visibility; }
 }
 
 [CreateAssetMenu(fileName = "GameState", menuName = "Scriptable Objects/GameState")]
@@ -19,9 +27,9 @@ public class GameState : ScriptableObject
     
     // Networking
     private string _sessionId = "";
-
+ 
     // To store both players
-    private List<Player> _players = null;
+    [SerializeField] public PlayerSettings[] _players = null;
 
     public uint Score 
     {
@@ -46,7 +54,6 @@ public class GameState : ScriptableObject
     public void ResetState()
     {
         _score = 0;
-        _players.Clear();
         _players = null;
     }
 

@@ -13,3 +13,23 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: Assembly-CSharp::GameState
   _score: 0
+  _playersDone: 0
+  _completedLevel: 0
+  _currentLevel: 0
+  _players:
+  - playerID: 0
+    color: {r: 0.34901962, g: 0.6784314, b: 0.91372555, a: 1}
+    collision:
+      serializedVersion: 2
+      m_Bits: 1783
+    visibility:
+      serializedVersion: 2
+      m_Bits: 1911
+  - playerID: 1
+    color: {r: 0.91372555, g: 0.25882354, b: 0.36862746, a: 1}
+    collision:
+      serializedVersion: 2
+      m_Bits: 1911
+    visibility:
+      serializedVersion: 2
+      m_Bits: 1783

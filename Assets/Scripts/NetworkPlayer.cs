@@ -3,6 +3,8 @@ using UnityEngine.Rendering.Universal;
 using Unity.Netcode;
 using UnityEngine.InputSystem;
 using System;
+using System.Data.Common;
+using NUnit.Framework;
 
 public class NetworkPlayer : NetworkBehaviour
 {
@@ -10,9 +12,12 @@ public class NetworkPlayer : NetworkBehaviour
     // Component references
     private Rigidbody rb;
     private ParticleSystem ps;
+    private MeshRenderer ms;
+
 
     // Respawn point for the player
-    [SerializeField] private Transform respawnPoint;
+    [SerializeField] private Transform respawnPoint; // Will grab from GameState based on ID!
+    [SerializeField] private GameState gameState;
 
     // Filter collisions based on layer mask
     [SerializeField] private LayerMask collidableWith;
@@ -43,7 +48,11 @@ public class NetworkPlayer : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ps = GetComponent<ParticleSystem>();
+        ms = GetComponent<MeshRenderer>();
+
+        SetupPlayerAttributesRpc((int)OwnerClientId);
     }
+
 
     // Update inspectors changes
     void OnValidate()
@@ -124,10 +133,23 @@ public class NetworkPlayer : NetworkBehaviour
         this.gameObject.SetActive(true);
     }
 
-    //TODO Testing communication
+    public void SetupPlayerAttributesRpc(int id)
+    {
+        if (id > gameState._players.Length)
+            Debug.LogError("Not Enough Player Settings!");
+
+        UpdateCollidableLayerMask(gameState._players[id].Collision);
+        UpdateVisibilityLayerMask(gameState._players[id].Visibility);
+        ms.material.color = gameState._players[id].Color;
+    }
 
     public override void OnNetworkSpawn()
     {
+        if (IsOwner)
+            SetupPlayerAttributesRpc((int)OwnerClientId);
+        if (!IsOwner)
+            ms.material.color = gameState._players[OwnerClientId].Color;
+
         Debug.Log($"[SPAWN] Player spawned. IsOwner: {IsOwner}, ClientId: {OwnerClientId}");
         Debug.Log($"[SPAWN] Position: {transform.position}");
         Debug.Log($"[SPAWN] Layer: {LayerMask.LayerToName(gameObject.layer)}");
