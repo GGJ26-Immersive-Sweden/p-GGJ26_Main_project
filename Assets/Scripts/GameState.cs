@@ -79,6 +79,12 @@ public class GameState : ScriptableObject
             _playersDone = 0;
         }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+        
+        _players1Done = false;
+        _players2Done = false;
+>>>>>>> Stashed changes
 =======
         
         _players1Done = false;
