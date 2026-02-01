@@ -4,7 +4,7 @@ using System.Collections;
 
 public class CollectableComponent : MonoBehaviour
 {
-    [SerializeField] private TagHandle playerTag;
+    [SerializeField] TagHandle playerTag;
     [SerializeField] GameState gameState; 
 
     [SerializeField] ParticleSystem ps; 
@@ -23,18 +23,22 @@ public class CollectableComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag(playerTag))
+        Debug.Log("KAKAKA");
+
+        if (!other.CompareTag("Player"))
             return;
 
         // Collected, Level done!
         Debug.Log("Key Collected");
-        StartCoroutine("PlayCollectEffect");
+        StartCoroutine(nameof(PlayCollectEffect));
 
         gameState.PlayerDone();
     }
 
     IEnumerator PlayCollectEffect()
     {
+        Debug.Log("Key Effect!");
+
         meshRenderer.enabled = false;
         hitBox.enabled = false;
         AudioClip clip;
