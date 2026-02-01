@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameEventManager : Singleton<GameEventManager>
 {
-    [SerializeField] private GameState _gameState;
+    [SerializeField] public GameState _gameState;
     // Events
     public static event Action<Level> OnLevelCompleted;
     public static event Action OnGameOver;

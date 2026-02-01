@@ -14,5 +14,6 @@ public class GuiController : MonoBehaviour
     public void TriggerWinGameButton() { if (GameEventManager.Instance != null) GameEventManager.TriggerOnGameWon(); }
     public void TriggerGameOverGameButton() { if (GameEventManager.Instance != null) GameEventManager.TriggerOnGameOver(); }
     public void TriggerExitGameButton() { if (GameEventManager.Instance != null) GameEventManager.TriggerOnExitRequested(); }
+    public void TriggerLevelCompletedButton() { if (GameEventManager.Instance != null) GameEventManager.TriggerOnLevelCompleted(0); }
 
 }
