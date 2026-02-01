@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1885589142
+  GlobalObjectIdHash: 1084977242
   InScenePlacedSourceGlobalObjectIdHash: 1084977242
   DeferredDespawnTick: 0
   Ownership: 1
@@ -301,6 +301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayer
   ShowTopMostFoldoutHeaderGroup: 1
+  ms: {fileID: 7501082000621216950}
+  cameraRotationController: {fileID: 0}
   respawnPoint: {fileID: 0}
   gameState: {fileID: 11400000, guid: d6fed36968458410993e88fad8cd822b, type: 2}
   collidableWith:
@@ -385,15 +387,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6315863504538686992, guid: 5df557835b927458296dd415dcd712b2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.63
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6315863504538686992, guid: 5df557835b927458296dd415dcd712b2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.63
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6315863504538686992, guid: 5df557835b927458296dd415dcd712b2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.63
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6315863504538686992, guid: 5df557835b927458296dd415dcd712b2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -401,7 +403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6315863504538686992, guid: 5df557835b927458296dd415dcd712b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9034
+      value: 1.37
       objectReference: {fileID: 0}
     - target: {fileID: 6315863504538686992, guid: 5df557835b927458296dd415dcd712b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -488,5 +490,10 @@ Transform:
 --- !u!1 &4603685505990736562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7543773152033491451, guid: 5df557835b927458296dd415dcd712b2, type: 3}
+  m_PrefabInstance: {fileID: 6292459025642877769}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7501082000621216950 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4560594407459280895, guid: 5df557835b927458296dd415dcd712b2, type: 3}
   m_PrefabInstance: {fileID: 6292459025642877769}
   m_PrefabAsset: {fileID: 0}
