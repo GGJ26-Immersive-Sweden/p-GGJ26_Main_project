@@ -1,12 +1,20 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using Unity.Services.Lobbies.Models;
+using Unity.Services.Lobbies;
+using System;
 
 public class ConnectionManager : Singleton<ConnectionManager> {
 
+    [SerializeField] private GameState _gameState;
     // This call the implementation of the base class to instantiate the Singleton
-    protected override  void Awake() => base.Awake();
-    //protected override void OnDestroy() => base.OnDestroy();
+    protected override void Awake()
+    {
+        base.Awake();
+        if(!_gameState)
+            throw new NullReferenceException("GameState ScriptableObject is missing, add it to the ConnectionManager on the editor");
+    }
 
     // UI Input field to enter the relay join code
     //public TMP_InputField code;
@@ -22,6 +30,7 @@ public class ConnectionManager : Singleton<ConnectionManager> {
 
         // Swap to main game scene
         Debug.Log($"Created Relay with code: {RelayManager.LobbyCode}");
+        _gameState.SessionId = $"{RelayManager.LobbyCode}";
         GameEventManager.TriggerOnGameStarted();
     }
 
@@ -43,7 +52,7 @@ public class ConnectionManager : Singleton<ConnectionManager> {
     public async void ExitGame()
     {
         RelayManager.Disconnect();
-
+        _gameState.SessionId = "";
         Debug.Log($"Player disconnected");
     }
 }
