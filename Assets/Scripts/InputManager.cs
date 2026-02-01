@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour {
     private Rigidbody playerRigidbody;
     private NetworkPlayer networkPlayer;
 
+    //[SerializeField] private GameObject _cosmeticPlayer;
     // Input values
     private bool jumpPressed = false;
     private float lastJumpPressedTime = -999f;
@@ -79,7 +80,6 @@ public class InputManager : MonoBehaviour {
             movementValue.z * maxVelocity
         );
     }
-    
     // Simple ground check using raycast
     bool IsGrounded() {
         Vector3 rayStart = transform.position;
@@ -114,6 +114,7 @@ public class InputManager : MonoBehaviour {
         // Consume buffered jump
         lastJumpPressedTime = -999f;
         lastGroundedTime = -999f;
+
     }
 
 
