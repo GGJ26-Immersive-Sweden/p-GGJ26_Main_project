@@ -52,4 +52,37 @@ public class CameraRotationController : MonoBehaviour
         _isRotating = false;
     }
 
+    public void RotateCameraToNextRoom(Vector3 point, float angle, float duration)
+    {
+        // Prevent starting a new rotation while one is in progress
+        if (!_isRotating)
+            StartCoroutine(RotateCameraAroundPoint(point, angle, duration));
+    }
+
+    private IEnumerator RotateCameraAroundPoint(Vector3 point, float angle, float duration) {
+        _isRotating = true;
+
+        Quaternion targetRotation = Quaternion.Euler(0f, angle, 0f) * transform.rotation;
+
+        // Track elapsed time
+        float elapsedTime = 0f;
+        float lastTheta = 0f;
+        while ((elapsedTime += Time.deltaTime) < duration) {
+
+            // Calculate normalized progress (0 to 1)
+            float t = elapsedTime / duration;
+
+            // Optional: Apply easing for smoother feel (ease-in-out)
+            float easedT = t * t * (3f - 2f * t);
+            transform.RotateAround(point, Vector3.up, (easedT - lastTheta) * angle);
+            lastTheta = easedT;
+            
+            yield return null;
+        }
+
+        // Ensure we land exactly on target rotation
+        transform.rotation = targetRotation;
+
+        _isRotating = false;
+    }
 }

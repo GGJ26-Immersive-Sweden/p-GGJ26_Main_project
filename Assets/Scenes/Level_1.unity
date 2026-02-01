@@ -2007,6 +2007,10 @@ PrefabInstance:
       value: Door
       objectReference: {fileID: 0}
     - target: {fileID: 6726940221260337096, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726940221260337096, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.84
       objectReference: {fileID: 0}
@@ -2046,11 +2050,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6726940221260337096, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1574237933783227294, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6726940221260337096, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5558978029531102048}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7632302348899601590, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 320742023}
   m_SourcePrefab: {fileID: 100100000, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
+--- !u!1 &320742022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7632302348899601590, guid: 75f3c041f880041e98578ea0c2d4d5de, type: 3}
+  m_PrefabInstance: {fileID: 320742021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &320742023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320742022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cacd9610a4442db8bb5aafea3902fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorController
+  _doorGameObject: {fileID: 0}
 --- !u!1 &336849024
 GameObject:
   m_ObjectHideFlags: 0
@@ -5255,6 +5288,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 776748300992664790, guid: e0c6358025ec8ef4da0801dd14c871a5, type: 3}
+      propertyPath: cameraRotationController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2946367726520326544, guid: e0c6358025ec8ef4da0801dd14c871a5, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5312,67 +5349,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0c6358025ec8ef4da0801dd14c871a5, type: 3}
---- !u!1001 &1012909083
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2696412354214667662, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: _cameraRotationController
-      value: 
-      objectReference: {fileID: 1928691869}
-    - target: {fileID: 3163092229736867356, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_Name
-      value: SceneRotatioTriggerCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 15.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5558978029058342779, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 42ca5c401e44443b3815b4278a123ae2, type: 3}
 --- !u!1 &1038137557
 GameObject:
   m_ObjectHideFlags: 0
@@ -7890,6 +7866,7 @@ GameObject:
   - component: {fileID: 1737587450}
   - component: {fileID: 1737587449}
   - component: {fileID: 1737587448}
+  - component: {fileID: 1737587451}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8015,6 +7992,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1737587451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737587446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610ecb224f7854d13991462ccdb3fce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraRotationController
 --- !u!1 &1757910646
 GameObject:
   m_ObjectHideFlags: 0
@@ -10038,6 +10027,59 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!65 &1704546026542538785
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163092230472491527}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3163092230472491527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5558978029531102048}
+  - component: {fileID: 1704546026542538785}
+  m_Layer: 0
+  m_Name: SceneRotatioTriggerCube
+  m_TagString: Door Entry
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5558978029531102048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163092230472491527}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.85, y: 0.32000017, z: -0.19}
+  m_LocalScale: {x: 7.84, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1576598530}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -10054,4 +10096,3 @@ SceneRoots:
   - {fileID: 250714389}
   - {fileID: 930137021}
   - {fileID: 633019603}
-  - {fileID: 1012909083}

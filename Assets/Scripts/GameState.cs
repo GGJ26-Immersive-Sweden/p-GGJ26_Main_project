@@ -19,7 +19,8 @@ public struct PlayerSettings
 public class GameState : ScriptableObject
 {
     [SerializeField] private uint _score = 0;
-    [SerializeField] private uint _playersDone = 0;
+    [SerializeField] private bool _players1Done = false;
+    [SerializeField] private bool _players2Done = false;
     [SerializeField] private bool _completedLevel = false;
     [SerializeField] private int  _currentLevel = 0;
     
@@ -57,10 +58,19 @@ public class GameState : ScriptableObject
         _players = null;
     }
 
-    public void PlayerDone()
+    public void PlayerDone(GameObject player = null)
     {
-        _playersDone++;
-        if (_playersDone >= 2)
+        if (player == null) return;
+
+        if (player.layer == LayerMask.NameToLayer("Player 1")) {
+            _players1Done = true;
+            Debug.Log("Player 1 done!");
+        } else if (player.layer == LayerMask.NameToLayer("Player 2")) {
+            _players2Done = true;
+            Debug.Log("Player 2 done!");
+        } 
+        
+        if (_players1Done && _players2Done)
         {
             Level lvl = (Level)_currentLevel;
             Debug.Log("NextLevel Triggered");
@@ -68,6 +78,12 @@ public class GameState : ScriptableObject
             _currentLevel++;
             _playersDone = 0;
         }
+<<<<<<< Updated upstream
+=======
+        
+        _players1Done = false;
+        _players2Done = false;
+>>>>>>> Stashed changes
     }
 
     internal void InitPlayer()
