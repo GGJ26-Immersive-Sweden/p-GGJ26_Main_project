@@ -166,6 +166,9 @@ public class NetworkPlayer : NetworkBehaviour
         Debug.Log($"[SPAWN] Layer: {LayerMask.LayerToName(gameObject.layer)}");
         Debug.Log($"[SPAWN] Has Collider: {GetComponent<Collider>() != null}");
         Debug.Log($"[SPAWN] Rigidbody isKinematic: {rb.isKinematic}");
+
+        GetComponent<InputManager>().enabled = IsOwner;
+        GetComponent<PlayerInput>().enabled = IsOwner;
     }
 
 }
