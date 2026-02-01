@@ -146,16 +146,15 @@ public class NetworkPlayer : NetworkBehaviour
         if (id > gameState._players.Length)
             Debug.LogError("Not Enough Player Settings!");
 
-        
-        UpdateCollidableLayerMask(gameState._players[id].Collision);
-        UpdateVisibilityLayerMask(gameState._players[id].Visibility);
-        ms.material.color = gameState._players[id].Color;
-
         if (0 == id) {
             gameObject.layer = LayerMask.NameToLayer("Player 1");
         } else if (1 == id) {
             gameObject.layer = LayerMask.NameToLayer("Player 2");
         }
+        
+        UpdateCollidableLayerMask(gameState._players[id].Collision);
+        UpdateVisibilityLayerMask(gameState._players[id].Visibility);
+        ms.material.color = gameState._players[id].Color;
     }
 
     public override void OnNetworkSpawn()

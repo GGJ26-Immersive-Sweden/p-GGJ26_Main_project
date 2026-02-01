@@ -76,20 +76,10 @@ public class GameState : ScriptableObject
             Debug.Log("NextLevel Triggered");
             GameEventManager.TriggerOnLevelCompleted(lvl);
             _currentLevel++;
-            _playersDone = 0;
+
+            _players1Done = false;
+            _players2Done = false;
         }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-        
-        _players1Done = false;
-        _players2Done = false;
->>>>>>> Stashed changes
-=======
-        
-        _players1Done = false;
-        _players2Done = false;
->>>>>>> Stashed changes
     }
 
     internal void InitPlayer()
