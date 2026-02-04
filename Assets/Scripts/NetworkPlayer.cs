@@ -161,8 +161,8 @@ public class NetworkPlayer : NetworkBehaviour
             gameObject.layer = LayerMask.NameToLayer("Player 2");
         }
         
-        UpdateCollidableLayerMask(gameState._players[id].Collision);
-        UpdateVisibilityLayerMask(gameState._players[id].Visibility);
+        collidable = gameState._players[id].Collision;
+        visible = gameState._players[id].Visibility;
         ms.material.color = gameState._players[id].Color;
     }
 
